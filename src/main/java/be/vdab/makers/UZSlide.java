@@ -10,42 +10,20 @@ import java.util.UUID;
 
 public class UZSlide {
 
-    private List<Request> requests = new ArrayList<>();
+    private CreateSlideRequest createSlideRequest;
 
-    private UZSlide(Layout layout){
-        requests.add(new Request()
-                .setCreateSlide(new CreateSlideRequest()
-                        .setObjectId(UUID.randomUUID().toString())
-                        .setInsertionIndex(1)
-                        .setSlideLayoutReference(new LayoutReference()
-                                .setPredefinedLayout(layout.toString()))));
+    public UZSlide(){
+        createSlideRequest = new CreateSlideRequest()
+                        .setObjectId(null)
+                        .setInsertionIndex(1);
     }
 
-    public CreateSlideResponse createNewSlideForPresentation(Slides slidesService, Presentation presentation) throws IOException{
-
-        String presentationId = presentation.getPresentationId();
-        BatchUpdatePresentationRequest body =
-                new BatchUpdatePresentationRequest().setRequests(requests);
-        BatchUpdatePresentationResponse response =
-                slidesService.presentations().batchUpdate(presentationId, body).execute();
-        CreateSlideResponse createSlideResponse = response.getReplies().get(0).getCreateSlide();
-        System.out.println("Created slide with ID: " + createSlideResponse.getObjectId());
-
-        return createSlideResponse;
-
+    public void setLayout(Layout layout){
+        createSlideRequest.getSlideLayoutReference().setPredefinedLayout(layout.toString());
     }
 
-    public static class SlideBuilder{
-        private Layout layout = Layout.TITLE_AND_TWO_COLUMNS;
-
-        public SlideBuilder setLayout(Layout layout){
-            this.layout = layout;
-            return this;
-        }
-
-        public UZSlide createSlide(){
-            return new UZSlide(layout);
-        }
+    CreateSlideRequest getCreateSlideRequest() {
+        return createSlideRequest;
     }
 
     public static enum Layout{

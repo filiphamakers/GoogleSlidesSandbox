@@ -2,18 +2,18 @@ package be.vdab.makers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.api.services.slides.v1.Slides;
 import com.google.api.services.slides.v1.model.*;
 
 public class ContentMaker {
-    private static int currentTextBoxId = 1;
 
     public void createNewContentForSlide(Slides slidesService, Presentation presentation, CreateSlideResponse slide)
         throws IOException{
 
         List<Request> requests = new ArrayList<>();
-        String textBoxId = String.format("%s%s","MyTextBox_", currentTextBoxId++);
+        String textBoxId = UUID.randomUUID().toString();
         String slideId = slide.getObjectId();
         String presentationId = presentation.getPresentationId();
         Dimension pt350 = new Dimension().setMagnitude(350.0).setUnit("PT");

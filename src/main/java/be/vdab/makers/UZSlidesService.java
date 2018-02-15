@@ -13,6 +13,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.slides.v1.Slides;
 import com.google.api.services.slides.v1.SlidesScopes;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,7 +23,8 @@ import java.util.List;
 class UZSlidesService {
 
     private static final String APPLICATION_NAME =
-            "Google Slides API Java Quickstart";
+            "test app";
+            //"Google Slides API Java Quickstart";
 
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
             System.getProperty("user.home"), ".credentials/slides.googleapis.com-java-quickstart");
@@ -35,7 +37,6 @@ class UZSlidesService {
     private static HttpTransport HTTP_TRANSPORT;
 
     static final Slides slidesService;
-
 
     /** Global instance of the scopes required by this quickstart.
      *
@@ -60,6 +61,7 @@ class UZSlidesService {
         try {
             temp = getSlidesService();
         }catch (IOException ex){
+            ex.printStackTrace();
         }
         slidesService = temp;
     }
@@ -74,7 +76,7 @@ class UZSlidesService {
     private static Credential authorize() throws IOException {
         // Load client secrets.
         InputStream in =
-                UZSlidesService.class.getResourceAsStream("/client_secret.json");
+                new FileInputStream("C:\\Users\\fhamak0\\client_secret.json");
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
