@@ -38,6 +38,6 @@ public class Slide {
     }
 
     public static enum Layout{
-        TITLE_AND_TWO_COLUMNS
+        TITLE_AND_ONE_COLUMN, TITLE_AND_TWO_COLUMNS
     }
 }

@@ -35,15 +35,15 @@ public class GoogleSlidesClient {
 
         List<Request> requests = new ArrayList<>(1);
         for (Slide uzSlide : uzSlides) {
-            String slideId = UUID.randomUUID().toString();
+            CreateSlideRequest googleSlide = SlideConverter.convert(new CreateSlideRequest(), uzSlide);
             requests.add(new Request()
-                    .setCreateSlide(new CreateSlideRequest()
-                            .setObjectId(slideId)
-                            .setInsertionIndex(1)
-                            .setSlideLayoutReference(new LayoutReference()
-                                    .setPredefinedLayout(LayoutConverter.convert(uzSlide.getLayout())))));
+                    .setCreateSlide(googleSlide));
         }
+        pushToServer(requests,googlePresentation);
+    }
 
+    private static void pushToServer(List<Request> requests,
+                                     com.google.api.services.slides.v1.model.Presentation googlePresentation){
         BatchUpdatePresentationRequest body =
                 new BatchUpdatePresentationRequest().setRequests(requests);
         try {
@@ -53,15 +53,6 @@ public class GoogleSlidesClient {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
 
-    private static class LayoutConverter{
-        private static String convert(Slide.Layout layout){
-            switch (layout){
-                case TITLE_AND_TWO_COLUMNS: return "TITLE_AND_TWO_COLUMNS";
-                default: throw new IllegalArgumentException();
-            }
-        }
-    }
 }

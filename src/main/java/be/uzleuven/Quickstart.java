@@ -11,11 +11,14 @@ import java.io.IOException;
 public class Quickstart {
 
     public static void main(String[] args) throws IOException {
-        Presentation.Builder builder = new Presentation.Builder();
-        for (int i = 0; i < 5; i++) {
-            builder.addSlide(new Slide.Builder().build());
-        }
-        Presentation presentation = builder.build();
+        Presentation.Builder presentationBuilder = new Presentation.Builder();
+
+        Slide.Builder slideBuilder2 = new Slide.Builder();
+        Slide slide2 = slideBuilder2.setLayout(Slide.Layout.TITLE_AND_TWO_COLUMNS).build();
+        presentationBuilder.addSlide(slide2);
+
+        Presentation presentation = presentationBuilder
+                .build();
         GoogleSlidesClient.save(presentation);
     }
 }
