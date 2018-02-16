@@ -9,7 +9,9 @@ public class Quickstart {
 
     public static void main(String[] args) throws IOException {
         UZPresentation presentation = new UZPresentation("Met twee slides");
-        presentation.addUZSlide(new UZSlide());
-        presentation.addUZSlide(new UZSlide());
+        for (int i = 0; i < 2; i++) {
+            presentation.addUZSlide(new UZSlide());
+        }
+
     }
 }

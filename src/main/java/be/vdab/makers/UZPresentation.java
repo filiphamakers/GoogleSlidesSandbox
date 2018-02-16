@@ -45,6 +45,8 @@ public class UZPresentation {
                     slidesService.presentations().batchUpdate(presentationId, body).execute();
         } catch(IOException ex){
             ex.printStackTrace();
+        } finally {
+            requests = new ArrayList<>(1);
         }
     }
 

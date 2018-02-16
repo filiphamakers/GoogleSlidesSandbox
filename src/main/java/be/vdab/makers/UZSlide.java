@@ -1,11 +1,7 @@
 package be.vdab.makers;
 
-import com.google.api.services.slides.v1.Slides;
-import com.google.api.services.slides.v1.model.*;
+import com.google.api.services.slides.v1.model.CreateSlideRequest;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class UZSlide {
@@ -14,8 +10,8 @@ public class UZSlide {
 
     public UZSlide(){
         createSlideRequest = new CreateSlideRequest()
-                        .setObjectId(null)
-                        .setInsertionIndex(1);
+                .setObjectId(UUID.randomUUID().toString())
+                .setInsertionIndex(1);
     }
 
     public void setLayout(Layout layout){
